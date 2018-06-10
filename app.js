@@ -9,6 +9,10 @@ app.use(index);
 const server = http.createServer(app);
 const io = socketIo(server);
 
+const {apiKey} = require('./config');
+
+console.log(`apiKey`)
+console.log(apiKey)
 
 let interval;
 io.on("connection", socket => {
@@ -26,7 +30,7 @@ io.on("connection", socket => {
 const getApiAndEmit = async socket => {
   try {
     const res = await axios.get(
-      "https://api.darksky.net/forecast/78dc65a35e718c889d642f089c7050d6/41.3712,73.4140"
+      `https://api.darksky.net/forecast/${apiKey}/41.3712,73.4140`
     );
     socket.emit("FromAPI", res.data.currently.temperature);
   } catch (error) {
