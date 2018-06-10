@@ -3,16 +3,17 @@ const http = require("http");
 const socketIo = require("socket.io");
 const axios = require("axios");
 const port = process.env.PORT || 4001;
-const index = require("./routes/index");
+const indexPage = require("./routes/index");
+
 const app = express();
-app.use(index);
 const server = http.createServer(app);
 const io = socketIo(server);
 
-const {apiKey} = require('./config');
+//use the index page
+app.use(indexPage);
 
-console.log(`apiKey`)
-console.log(apiKey)
+
+const {apiKey} = require('./config');
 
 let interval;
 io.on("connection", socket => {
